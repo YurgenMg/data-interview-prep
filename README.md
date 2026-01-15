@@ -65,7 +65,7 @@ Si ves los números de versión, ¡estás listo!
 
 **Opción A - Clonar con Git:**
 ```bash
-git clone https://github.com/tuusuario/data-interview-prep.git
+git clone https://github.com/YurgenMg/data-interview-prep.git
 cd data-interview-prep
 ```
 
