@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  # Servicio 1: El motor de Base de Datos
+  postgres_db:
+    image: postgres:15-alpine
+    container_name: interview_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin_user
+      POSTGRES_PASSWORD: secure_password_123
+      POSTGRES_DB: analytics_playground
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - analytics_net
+
+  # Servicio 2: Administrador visual (pgAdmin)
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: interview_pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@interview.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres_db
+    networks:
+      - analytics_net
+
+# Definición de volúmenes para persistencia
+volumes:
+  postgres_data:
+
+# Definición de red para que se hablen entre sí
+networks:
+  analytics_net:
+    driver: bridge

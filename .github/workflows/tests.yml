@@ -1,0 +1,62 @@
+name: Tests y Linting
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.11', '3.12']
+
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        pip install pytest pytest-cov flake8 black
+    
+    - name: Lint with flake8
+      run: |
+        # Detiene el build si hay errores de sintaxis
+        flake8 scripts/ --count --select=E9,F63,F7,F82 --show-source --statistics
+        # exit-zero trata todos los errores como warnings
+        flake8 scripts/ --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: Format check with black
+      run: |
+        black --check scripts/ || echo "Algunos archivos necesitan reformateo"
+    
+    - name: Run tests with pytest
+      run: |
+        pytest tests/ -v --cov=scripts --cov-report=xml
+      continue-on-error: true
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        fail_ci_if_error: false
+      continue-on-error: true
+
+  code-quality:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Run pylint
+      run: |
+        pip install pylint
+        pylint scripts/ --exit-zero --output-format=parseable
+      continue-on-error: true
