@@ -186,7 +186,7 @@ def main():
         print("     Campos: review_id, employee_id, review_date, rating, reviewer_id, comments")
         print("\n" + "="*60)
         print("\n💡 EJEMPLOS DE CONSULTAS CON FUNCIONES DE VENTANA:\n")
-        print("  Ver: scripts/window_functions_examples.sql")
+        print("  Ver: scripts/advanced_sql_patterns.sql")
         print("\n" + "="*60 + "\n")
         
     except Exception as e:

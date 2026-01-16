@@ -263,7 +263,7 @@ ORDER BY p.project_name, a.hours_allocated DESC;
 
 ## 🎓 Recursos Adicionales
 
-- **Ver archivo:** `scripts/window_functions_examples.sql` (20+ ejemplos)
+- **Ver archivo:** `scripts/advanced_sql_patterns.sql` (20+ ejemplos de window functions, CTEs y date/time)
 - **Documentación oficial:** https://www.postgresql.org/docs/current/functions-window.html
 - **Tutoriales:** https://www.modo-labs.com/blog/window-functions
 
@@ -280,7 +280,7 @@ ORDER BY p.project_name, a.hours_allocated DESC;
 - [ ] Resolver: EJERCICIO 3
 - [ ] Resolver: EJERCICIO 4
 - [ ] Resolver: EJERCICIO 5
-- [ ] Explorar: `window_functions_examples.sql`
+- [ ] Explorar: `advanced_sql_patterns.sql`
 
 ---
 
